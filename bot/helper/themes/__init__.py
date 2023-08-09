@@ -4,8 +4,9 @@ from importlib import import_module
 from random import choice as rchoice
 from bot import config_dict, LOGGER
 from bot.helper.themes import wzml_minimal
+from bot.helper.themes import wzml_futuristic
 
-AVL_THEMES = {}
+AVL_THEMES = {"futuristic": wzml_futuristic,"minimal": wzml_minimal}
 for theme in listdir('bot/helper/themes'):
     if theme.startswith('wzml_') and theme.endswith('.py'):
         AVL_THEMES[theme[5:-3]] = import_module(f'bot.helper.themes.{theme[:-3]}')
