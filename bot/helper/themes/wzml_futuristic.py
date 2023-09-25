@@ -97,7 +97,7 @@ class WZMLStyle:
     TOTAL_FILES =           '<b>📂 Files: </b>{Files}\n'
     RCPATH =                '<b>🎛️ Path: </b><code>{RCpath}</code>\n'
     M_CC =                  '<b>👤 By: </b>{Tag}\n\n'
-    M_BOT_MSG =             '➲ <b><i>🧲 Link(s) have been Sent to Bot PM (Private)</i></b>'
+    M_BOT_MSG =             '<b><i>🧲 Link(s) have been Sent to Bot PM (Private)</i></b>'
     
     # ----- BUTTONS -------
     CLOUD_LINK =      '☁️ Cloud Link'
