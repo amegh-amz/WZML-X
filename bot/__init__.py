@@ -214,7 +214,7 @@ if len(USER_SESSION_STRING) != 0:
     log_info("Creating client from USER_SESSION_STRING")
     try:
         user = tgClient('user', TELEGRAM_API, TELEGRAM_HASH, session_string=USER_SESSION_STRING,
-                        parse_mode=enums.ParseMode.HTML, no_updates=True).start()
+                        parse_mode=enums.ParseMode.HTML, no_updates=True, max_concurrent_transmissions=1000).start()
         IS_PREMIUM_USER = user.me.is_premium
     except Exception as e:
         log_error(f"Failed making client from USER_SESSION_STRING : {e}")
@@ -226,14 +226,14 @@ if len(MEGA_EMAIL) == 0 or len(MEGA_PASSWORD) == 0:
     log_warning('MEGA Credentials not provided!')
     MEGA_EMAIL = ''
     MEGA_PASSWORD = ''
-
-UPTOBOX_TOKEN = environ.get('UPTOBOX_TOKEN', '')
-if len(UPTOBOX_TOKEN) == 0:
-    UPTOBOX_TOKEN = ''
     
 GDTOT_CRYPT = environ.get('GDTOT_CRYPT', '')
 if len(GDTOT_CRYPT) == 0:
     GDTOT_CRYPT = ''
+
+JIODRIVE_TOKEN = environ.get('JIODRIVE_TOKEN', '')
+if len(JIODRIVE_TOKEN) == 0:
+    JIODRIVE_TOKEN = ''
 
 REAL_DEBRID_API = environ.get('REAL_DEBRID_API', '')
 if len(REAL_DEBRID_API) == 0:
@@ -635,6 +635,7 @@ config_dict = {'ANIME_TEMPLATE': ANIME_TEMPLATE,
                'TIMEZONE': TIMEZONE,
                'GD_INFO': GD_INFO,
                'GDTOT_CRYPT': GDTOT_CRYPT,
+               'JIODRIVE_TOKEN': JIODRIVE_TOKEN,
                'EQUAL_SPLITS': EQUAL_SPLITS,
                'EXTENSION_FILTER': EXTENSION_FILTER,
                'GDRIVE_ID': GDRIVE_ID,
@@ -688,7 +689,6 @@ config_dict = {'ANIME_TEMPLATE': ANIME_TEMPLATE,
                'UPSTREAM_REPO': UPSTREAM_REPO,
                'UPSTREAM_BRANCH': UPSTREAM_BRANCH,
                'UPGRADE_PACKAGES': UPGRADE_PACKAGES,
-               'UPTOBOX_TOKEN': UPTOBOX_TOKEN,
                'USER_SESSION_STRING': USER_SESSION_STRING,
                'USER_TD_MODE':USER_TD_MODE,
                'USER_TD_SA': USER_TD_SA,
@@ -808,7 +808,7 @@ else:
 
 log_info("Creating client from BOT_TOKEN")
 bot = tgClient('bot', TELEGRAM_API, TELEGRAM_HASH, bot_token=BOT_TOKEN, workers=1000,
-               parse_mode=enums.ParseMode.HTML).start()
+               parse_mode=enums.ParseMode.HTML, max_concurrent_transmissions=1000).start()
 bot_loop = bot.loop
 bot_name = bot.me.username
 scheduler = AsyncIOScheduler(timezone=str(get_localzone()), event_loop=bot_loop)
